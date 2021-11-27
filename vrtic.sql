@@ -2,19 +2,11 @@ drop database if exists vrtic;
 create database vrtic;
 use vrtic;
 
-create table vrtic(
-    sifra int not null primary key auto_increment,
-    naziv varchar(50) not null,
-    adresa varchar(50) not null,
-    oib char(11)
-);
-
 create table odgajateljica(
     sifra int not null primary key auto_increment,
     osoba int,
     placa decimal(18,2),
-    strucnasprema varchar(50),
-    vrtic int
+    strucnasprema varchar(50)
 );
 
 create table odgojnaskupina(
@@ -37,12 +29,16 @@ create table osoba(
     adresa varchar(50)
 );
 
-alter table odgajateljica add foreign key (vrtic) references vrtic(sifra);
-
 alter table odgojnaskupina add foreign key (odgajateljica) references odgajateljica(sifra);
 
 alter table dijete add foreign key (odgojnaskupina) references odgojnaskupina(sifra);
 
 alter table odgajateljica add foreign key (osoba) references osoba(sifra);
 alter table dijete add foreign key (osoba) references osoba(sifra);
+
+insert into osoba(sifra,ime,prezime) values
+(null,'Pero','Perić'),
+(null,'Marisija','Vućko'),
+(null,'Petra','Marković'),
+(null,'Josipa','Petrić');
 
